@@ -4,13 +4,14 @@ const { Webhook } = require('discord-webhook-node');
 
 const { Discord } = require('discord.js');
 
-const {Collection, Client, Events, GatewayIntentBits, EmbedBuilder, ButtonBuilder, ButtonStyle, TextInputBuilder, TextInputStyle, SlashCommandBuilder } = require('discord.js');
+const {ActivityType , Collection, Client, Events, GatewayIntentBits, EmbedBuilder, ButtonBuilder, ButtonStyle, TextInputBuilder, TextInputStyle, SlashCommandBuilder } = require('discord.js');
 const PREFIX = "pig!"
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages, GatewayIntentBits.GuildMembers, GatewayIntentBits.MessageContent] });
 
 client.on("ready", c => {
     console.log(`Logged in as ${client.user.tag}!`);
+    client.user.setPresence({ activities: [{ name: `https://ipigtw.xyz`, type: ActivityType.Watching}], status: "online"})
 })
 client.on("messageDelete", async (message) => {
     if (message.author.bot) return;
@@ -35,8 +36,7 @@ client.on('messageCreate', async (message) => {
     hook.setUsername(message.author.username)
     hook.setAvatar(message.author.displayAvatarURL())
     hook.send(message.content + " _ _")
-    
-    await message.delete()
+
 
 })
 
